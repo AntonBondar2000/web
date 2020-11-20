@@ -125,8 +125,9 @@ header .menu .item-menu a:hover{
     font-weight: 500;
 }
 
-#ist-profile{
+#list-profile{
     margin-left: 50px;
+    width: 80%;
 }
 
 /*Футер*/
@@ -140,4 +141,44 @@ footer .wrap p{
     font-family: "Cabin", sans-serif;
     text-align: end;
     padding: 50px 0 50px 0;
+}
+.update_info{
+    margin: 75px 0 0 350px;
+    width: 30%;
+    outline: none;
+}
+
+/*Всплывающая форма*/
+.block_update_info{
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 30%;
+    background-color: black;
+    padding: 50px;
+    z-index: 100;
+    border-radius: 25px;
+}
+.block_update_info label{
+    color: white;
+}
+.block_update_info .close{
+    display: flex;
+    justify-content: flex-end;
+    color:white;
+    width: 100%;
+}
+.block_update_info i{
+    color:white !important;
+    cursor: pointer;
+}
+.block_update_info i:hover{
+    color:white !important;
+    cursor: pointer;
+}
+.block_update_info form{
+    margin-top: 50px;
+}
+.block_update_info form button{
+    margin-top: 25px;
 }

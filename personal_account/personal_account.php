@@ -4,6 +4,12 @@ if(!array_key_exists('user', $_SESSION)){
   header('Location: /Hotel/home_page/home.php');
   exit();
 }
+$mysql = new mysqli ("localhost","root", "", 'hotel_database');
+$id_user = $_SESSION['user']['id'];
+$user_info = $mysql->query("
+      SELECT * FROM `users` WHERE `id` = '$id_user'
+      ");
+$user_info = $user_info->fetch_all();
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +27,26 @@ if(!array_key_exists('user', $_SESSION)){
 
 <body>
 
+    <div class="block_update_info" style = "display:none">
+        <div class="close"><i class="fas fa-times"></i></div>
+        
+        <form action="../update_info_user.php" method = "post">
+        <div class="form-group">
+             <label for="update_full_name">Полное имя</label>
+            <input type="text" class="form-control" id="update_full_name" value = "<?php echo $user_info[0][1]?>" name = "update_fullname">
+        </div>
+        <div class="form-group">
+            <label for="update_email">Электронная почта</label>
+            <input type="email" class="form-control" id="update_email" value = "<?php echo $user_info[0][2]?>" name = "update_email">
+        </div>
+        <div class="form-group">
+            <label for="update_phone">Телефон</label>
+            <input type="phone" class="form-control" id="update_phone" value = "<?php echo $user_info[0][5]?>>" name = "update_phone">
+        </div>
+        <button type="submit" class="btn btn-primary">Изменить</button>
+        </form>
+    </div>
+
     <header>
         <div class="wrap">
             <div class="wrap-header">
@@ -30,7 +56,8 @@ if(!array_key_exists('user', $_SESSION)){
                     <p>|</p>
                     <div class="authorization"><a href="../reg_auth/auth.html">Авторизация</a></div>
                     <?php } else{ ?>
-                    <div class="registration"><a href="../personal_account/personal_account.php">Личный кабинет</a></div>
+                    <div class="registration"><a href="../personal_account/personal_account.php">Личный кабинет</a>
+                    </div>
                     <p>|</p>
                     <div class="authorization"><a href="../logout.php">Выйти</a></div>
                     <?php }; ?>
@@ -53,78 +80,95 @@ if(!array_key_exists('user', $_SESSION)){
             </div>
         </div>
     </header>
-    
+
     <section class="LK">
         <div class="wrap">
             <div class="row">
-                <div class="col-4">
-                  <div class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Личная информация</a>
-                    <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Бронирование</a>
+                <div class="col-3">
+                    <div class="list-group" id="list-tab" role="tablist">
+                        <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
+                            href="#list-home" role="tab" aria-controls="home">Личная информация</a>
+                        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"
+                            href="#list-profile" role="tab" aria-controls="profile">Бронирование</a>
 
-                  </div>
+                    </div>
                 </div>
                 <div class="col-1"></div>
-                <div class="col-7">
-                  <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active personal-information" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-                        <div class="full_name">
-                            <h2>Полное имя:</h2>
-                            <p><?php echo $_SESSION['user']['full_name']?></p>
+                <div class="col-8">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active personal-information" id="list-home" role="tabpanel"
+                            aria-labelledby="list-home-list">
+                            <div class="full_name">
+                                <h2>Полное имя:</h2>
+                                <p><?php echo $user_info[0][1]?></p>
+                            </div>
+                            <div class="email">
+                                <h2>Электронная почта</h2>
+                                <p><?php echo $user_info[0][2]?></p>
+                            </div>
+                            <div class="login">
+                                <h2>Логин</h2>
+                                <p><?php echo $user_info[0][3]?></p>
+                            </div>
+                            <div class="phone">
+                                <h2>Телефон</h2>
+                                <p><?php echo $user_info[0][5]?></p>
+                            </div>
+
+                            <button type="button" class="btn btn-outline-dark update_info">Изменить данные</button>
+
                         </div>
-                        <div class="email">
-                            <h2>Электронная почта</h2>
-                            <p><?php echo $_SESSION['user']['email']?></p>
-                        </div>
-                        <div class="login">
-                            <h2>Логин</h2>
-                            <p><?php echo $_SESSION['user']['login']?></p>
-                        </div>
-                        <div class="phone">
-                            <h2>Телефон</h2>
-                            <p>+<?php echo $_SESSION['user']['phone']?></p>
-                        </div>
-                    </div>
-                    
-                      
-                    <div class="tab-pane fade booking" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-                        <table class="table">
-                            <thead>
-                              <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">ФИО</th>
-                                <th scope="col">Дата</th>
-                                <th scope="col">Номер</th>
-                                <th scope="col">Гостей</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                            <?php 
+
+
+                        <div class="tab-pane fade booking" id="list-profile" role="tabpanel"
+                            aria-labelledby="list-profile-list">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">ФИО</th>
+                                        <th scope="col">Дата</th>
+                                        <th scope="col">Номер</th>
+                                        <th scope="col">Гостей</th>
+                                        <th scope="col">Удалить</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
                             
                             $login = $_SESSION['user']['login'];
-                            $mysql = new mysqli ("localhost","root", "", 'hotel_database');
+                            $id_user = $_SESSION['user']['id'];
                             $booking = $mysql->query("
-                                SELECT * FROM `booking` WHERE `login` = '$login'
+                                SELECT * FROM `booking` WHERE `id_user` = '$id_user'
                                 ");
                             $all_count =  mysqli_num_rows($booking);
                             $booking = $booking->fetch_all();
                             for($i = 1; $i<=$all_count; $i++){?>
-                            <tr>
-                                <th scope="row"><?php echo $i ?></th>
-                                <td><?php echo $booking[$i-1][2] ?></td>
-                                <td><?php echo $booking[$i-1][3]." : ".$booking[$i-1][6] ?></td>
-                                <td><?php echo $booking[$i-1][4]?></td>
-                                <td><?php echo $booking[$i-1][5]?></td>
-                              </tr>
-                            <?php };?>
-                            </tbody>
-                          </table>
-                          
-                    </div>
+                                    <tr>
+                                        <th scope="row"><?php echo $i ?></th>
+                                        <td><?php echo $booking[$i-1][3] ?></td>
+                                        <td><?php echo $booking[$i-1][4]." : ".$booking[$i-1][7] ?></td>
+                                        <td><?php echo $booking[$i-1][5]?></td>
+                                        <td><?php echo $booking[$i-1][6]?></td>
+                                        <td>
+                                            <form action="../delete_booking.php" method="post">
+                                                <button type="submit" name="delete_booking" value="<?php echo $booking[$i-1][0]?>" class="btn btn-danger"
+                                                    >Удалить
+                                                </button>
+                                            </form>
+                                            
 
-                  </div>
+                                        </td>
+                                    </tr>
+                                    <?php };?>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
                 </div>
-              </div>
+            </div>
         </div>
     </section>
 
@@ -151,6 +195,7 @@ if(!array_key_exists('user', $_SESSION)){
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
+    <script src = "delete.js"></script>
 </body>
 
 </html>
