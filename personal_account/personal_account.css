@@ -1,0 +1,143 @@
+/*Общие свойства*/
+*{
+    margin: 0;
+    position: 0;
+    box-sizing: border-box;
+}
+a{
+    color: black;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+}
+a:focus{
+    text-decoration: none;
+}
+.wrap{
+    width: 85%;
+    margin: 0 auto;
+}
+
+
+/*Свойста для header'а*/
+header{
+    border-bottom: 2px #dfa974 solid;
+}
+header .wrap-header{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+header .logo{
+    width: 30%;
+    max-height: 250px;
+}
+header .logo img{
+    width: auto;
+    height: 100%;
+}
+
+header .menu{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+header .menu .item-menu a{
+    font-size: 20px;
+    color: black;
+    font-weight: 500;
+    border-bottom: 2px solid #fff;
+    text-decoration: none;
+    padding-bottom: 5px;
+    transition-duration: .5s;
+}
+header .menu .item-menu a:hover{
+    border-bottom: 2px solid #dfa974;
+    text-decoration: none;
+    transition-duration: .5s;
+}
+
+.profile{
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top: none;
+    padding: 5px 10px 0 10px;
+}
+.profile .registration a{
+    margin-right: 10px;
+    color: black;
+    text-decoration: none;
+}
+.profile .authorization a{
+    margin-left: 10px;
+    color: black;
+    text-decoration: none;
+}
+.profile .registration a:hover, .profile .authorization a:hover{
+    text-decoration: underline;
+}
+
+
+
+/*Личный кабинет*/
+.LK{
+    padding: 250px 0 150px 0;
+}
+#list-home-list, #list-profile-list{
+    color: #dfa974;
+    border: 2px solid #dfa974;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    background-color: white;
+    border-radius: 15px;
+}
+#list-profile-list{
+    margin-top: 50px;
+}
+#list-home-list:hover, #list-profile-list:hover{
+    transition-duration: .5s;
+    background-color: #dfa974;
+    color: white;
+}
+
+.personal-information div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 50px;
+}
+.personal-information div:first-child{
+    margin-top: -50px;
+}
+.personal-information div h2{
+    font-size: 28px;
+}
+
+.personal-information div p{
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+#ist-profile{
+    margin-left: 50px;
+}
+
+/*Футер*/
+footer{
+    background-color: #1e2331;
+    height: auto;
+}
+footer .wrap p{
+    color: #fff;
+    font-size: 16px;
+    font-family: "Cabin", sans-serif;
+    text-align: end;
+    padding: 50px 0 50px 0;
+}

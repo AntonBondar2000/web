@@ -1,0 +1,295 @@
+/*Общие свойства*/
+*{
+    margin: 0;
+    position: 0;
+    box-sizing: border-box;
+}
+a{
+    color: black;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+}
+a:focus{
+    text-decoration: none;
+}
+.wrap{
+    width: 85%;
+    margin: 0 auto;
+}
+
+
+/*Свойста для header'а*/
+header .wrap-header{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+header .logo{
+    width: 30%;
+    max-height: 250px;
+}
+header .logo img{
+    width: auto;
+    height: 100%;
+}
+
+header .menu{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+header .menu .item-menu a{
+    font-size: 20px;
+    color: black;
+    font-weight: 500;
+    border-bottom: 2px solid #fff;
+    text-decoration: none;
+    padding-bottom: 5px;
+    transition-duration: .5s;
+}
+header .menu .item-menu a:hover{
+    border-bottom: 2px solid #dfa974;
+    text-decoration: none;
+    transition-duration: .5s;
+}
+
+.profile{
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top: none;
+    padding: 5px 10px 0 10px;
+}
+.profile .registration a{
+    margin-right: 10px;
+    color: black;
+    text-decoration: none;
+}
+.profile .authorization a{
+    margin-left: 10px;
+    color: black;
+    text-decoration: none;
+}
+.profile .registration a:hover, .profile .authorization a:hover{
+    text-decoration: underline;
+}
+
+
+/*Свойства карусели*/
+.carousel-section{
+    padding: 50px 0 0 0 ;
+}
+.carousel{
+    position: relative;
+}
+.carousel-item{
+    max-height: 750px;
+}
+.booking-hotel{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+}
+.booking-hotel-text{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 150px;
+}
+.booking-hotel-text h1{
+    width: 60%;
+    margin: 0 auto;
+    color: #fff;
+    font-size: 80px;
+    font-family: "Lora", serif;
+}
+.booking-hotel-text p{
+    width: 60%;
+    margin: 0 auto;
+    color: #fff;
+    font-size: 18px;
+    margin-top: 50px;
+}
+.booking-hotel-form{
+    background-color: #fff;
+    width: 20%;
+    height: 75%;
+    padding: 10px 0 10px 0;
+    border-radius: 10px;
+    margin-left: 150px;
+}
+.booking-hotel-form h3{
+    font-size: 30px;
+    font-family: "Lora", serif;
+    width: 90%;
+    margin: 0 auto  ;
+    text-align: center;
+}
+.booking-hotel-form form{
+    margin:  0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    align-items: center;
+    margin-top: 50px;
+    height: auto;
+}
+.item-form{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 15px;
+}
+.booking-hotel-form form button{
+width: 100%;
+padding: 10px 0 10px 0;
+color: #dfa974;
+border: 2px solid #dfa974;
+font-size: 14px;
+text-transform: uppercase;
+border-radius: 2px;
+font-weight: 500;
+background-color: transparent;
+margin-top: 50px;
+transition-duration: .5s;
+outline: none;
+}
+.booking-hotel-form form button:hover{
+    transition-duration: .5s;
+    background-color: #dfa974;
+    color:white;
+}
+.booking-hotel-form form button:active, .booking-hotel-form form button:focus{
+    outline:none;
+}
+
+
+/*Секция О нас*/
+.about-us{
+    padding-top: 100px;
+}
+.about-us .wrap{
+    display: flex;
+    justify-content: space-around;
+}
+.about-us-information{
+    width: 40%;
+    text-align: center;
+}
+.about-us-information-title{
+    font-size: 14px;
+    color: #dfa974;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;    
+}
+.about-us-information h2{
+    font-size: 44px;
+    color: #000;
+    margin-top: 40px;
+    font-family: "Lora", serif;
+}
+.about-us-information-text{
+    width: 80%;
+    margin:  0 auto;
+    font-size: 16px;
+    font-family: "Cabin", sans-serif;
+    margin-top: 30px;
+    color: #595960;
+}
+.about-us-gallery{
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+}
+.about-us-gallery img{
+    max-width: 45%;
+}
+
+/*Секция Что мы делаем*/
+
+
+.we-do{
+    padding-top: 150px;
+    padding-bottom: 100px;
+}
+.we-do-title{
+    font-size: 14px;
+    color: #dfa974;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;  
+    text-align: center;
+}
+.we-do h2{
+    font-size: 44px;
+    color: #000;
+    margin-top: 40px;
+    font-family: "Lora", serif;
+    text-align: center;
+}
+.blocks-we-do{
+    margin-top: 60px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 2vw;
+    
+}
+.item-blocks-we-do{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition-duration: .5s;
+    border: 2px solid white;
+    padding: 10px;
+}
+.item-blocks-we-do i{
+    color: #dfa974;
+    font-size: 50px;
+    text-align: center;
+}
+.item-blocks-we-do h4{
+    color: #000;
+    font-size: 22px;
+    text-align: center;
+    margin-top: 30px;
+    font-family: "Lora", serif;
+    font-weight: 400;
+}
+.item-blocks-we-do p{
+    color: #595960;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    margin-top: 30px;
+    text-align: center;
+}
+.item-blocks-we-do:hover{
+    transition-duration: .5s;
+    border: 2px solid #dfa974;
+}
+
+
+/*Футер*/
+footer{
+    background-color: #1e2331;
+    height: auto;
+}
+footer .wrap p{
+    color: #fff;
+    font-size: 16px;
+    font-family: "Cabin", sans-serif;
+    text-align: end;
+    padding: 50px 0 50px 0;
+}

@@ -1,0 +1,153 @@
+/*Общие свойства*/
+*{
+    margin: 0;
+    position: 0;
+    box-sizing: border-box;
+}
+a{
+    color: black;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+}
+a:focus{
+    text-decoration: none;
+}
+.wrap{
+    width: 85%;
+    margin: 0 auto;
+}
+
+header{
+    border-bottom: 2px #dfa974 solid;
+}
+/*Свойста для header'а*/
+header .wrap-header{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+header .logo{
+    width: 30%;
+    max-height: 250px;
+}
+header .logo img{
+    width: auto;
+    height: 100%;
+}
+
+header .menu{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+header .menu .item-menu a{
+    font-size: 20px;
+    color: black;
+    font-weight: 500;
+    border-bottom: 2px solid #fff;
+    text-decoration: none;
+    padding-bottom: 5px;
+    transition-duration: .5s;
+}
+header .menu .item-menu a:hover{
+    border-bottom: 2px solid #dfa974;
+    text-decoration: none;
+    transition-duration: .5s;
+}
+
+.profile{
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top: none;
+    padding: 5px 10px 0 10px;
+}
+.profile .registration a{
+    margin-right: 10px;
+    color: black;
+    text-decoration: none;
+}
+.profile .authorization a{
+    margin-left: 10px;
+    color: black;
+    text-decoration: none;
+}
+.profile .registration a:hover, .profile .authorization a:hover{
+    text-decoration: underline;
+}
+
+
+/*Свойства для номеров*/
+.rooms{
+    padding-top: 150px;
+}
+.rooms .wrap h1{
+    font-size: 44px;
+    color: #000;
+    font-family: "Lora", serif;
+    font-weight: 400;
+    text-align: center;
+}
+.block-room{
+    margin-top: 75px;
+}
+.item-block-room{
+padding-bottom: 80px;
+margin-top: 20px;
+transition-duration: .5s;
+}
+.item-block-room:hover{
+background-color: #ebebeb;
+transition-duration: .5s;
+}
+.item-block-room h2{
+    font-size: 24px;
+    font-family: "Lora", serif;
+    font-weight: 400;
+    color: #000;
+    margin-top: 20px;
+    padding-left: 25px;
+}
+.item-block-room img{
+    max-width: 100%;
+}
+.item-block-room .cost-room{
+font-size: 14px;
+font-family: "Cabin", sans-serif;
+font-weight: 400;
+color: #000;
+padding-left: 25px;
+margin-top: 20px;
+}
+.item-block-room .cost-room span{
+    font-size: 30px;
+    color: #dfa974;
+    font-family: "Lora", serif;
+    font-weight: 700;
+}
+
+.item-block-room p:not(.cost-room){
+    font-size: 16px;
+    font-family: "Cabin", sans-serif;
+    font-weight: 400;
+    color: #000;
+    padding-left: 25px;
+    margin-top: 20px;
+}
+
+/*Футер*/
+footer{
+    background-color: #1e2331;
+    height: auto;
+}
+footer .wrap p{
+    color: #fff;
+    font-size: 16px;
+    font-family: "Cabin", sans-serif;
+    text-align: end;
+    padding: 50px 0 50px 0;
+}
