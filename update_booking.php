@@ -12,5 +12,6 @@
     $log = "Пользователь: " . $_SESSION['user']['id'] . " - изменил свои данные бронирования для брони №". $id_booking . " " . date('Y-m-d h:i:s A');
     file_put_contents('log/log.txt', $log . PHP_EOL, FILE_APPEND);
 
-    header('Location: /Hotel/personal_account/personal_account.php');
+    echo "Вы успешно изменили данные брони";
+    exit();
  ?>

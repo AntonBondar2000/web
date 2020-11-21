@@ -11,9 +11,10 @@
                 ");
     $mysql->close();
 
+    echo "Вы успешно изменили свои данные";
     $log = "Пользователь: " . $_SESSION['user']['id'] . " - изменил свои данные " . date('Y-m-d h:i:s A');
     file_put_contents('log/log.txt', $log . PHP_EOL, FILE_APPEND);
 
 
-    header('Location: /Hotel/personal_account/personal_account.php');
+    exit();
  ?>

@@ -4,6 +4,7 @@ session_start();
 if (!array_key_exists('user', $_SESSION)) {
     echo "Зарегистрируйтесь";
     exit();
+
 }
 
 
@@ -27,7 +28,7 @@ $mysql->close();
 $log = "Пользователь: " . $_SESSION['user']['id'] . " - Забронировал номер " . date('Y-m-d h:i:s A');
 file_put_contents('log/log.txt', $log . PHP_EOL, FILE_APPEND);
 
-
-header('Location: /Hotel/home_page/home.php');
+echo "Бронирование успешно";
+exit();
 
 ?>

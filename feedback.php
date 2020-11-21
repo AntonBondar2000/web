@@ -21,5 +21,5 @@ $mysql->close();
 $log = "Отправлено сообщение для email - " . $email . " " . date('Y-m-d h:i:s A');
 file_put_contents('log/log.txt', $log . PHP_EOL, FILE_APPEND);
 
-header('Location: /Hotel/contact/contact.php');
+echo "Сообщение отправлено";
 ?>

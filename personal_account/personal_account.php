@@ -63,7 +63,7 @@ $rooms = $rooms->fetch_all();
     <div class="block_update_info" style="display:none">
         <div class="close"><i class="fas fa-times"></i></div>
 
-        <form action="../update_info_user.php" method="post">
+        <form>
             <div class="form-group">
                 <label for="update_full_name">Полное имя</label>
                 <input type="text" class="form-control" id="update_full_name" value="<?php echo $user_info[0][1] ?>" name="update_fullname">
@@ -76,7 +76,7 @@ $rooms = $rooms->fetch_all();
                 <label for="update_phone">Телефон</label>
                 <input type="phone" class="form-control" id="update_phone" value="<?php echo $user_info[0][5] ?>>" name="update_phone">
             </div>
-            <button type="submit" class="btn btn-primary">Изменить</button>
+            <button type="button" class="btn btn-primary">Изменить</button>
         </form>
     </div>
 
@@ -84,7 +84,7 @@ $rooms = $rooms->fetch_all();
     <div class="block_update_booking" style="display:none">
         <div class="close_booking"><i class="fas fa-times"></i></div>
 
-        <form action="../update_booking.php" method="post">
+        <form>
             <div class="rooms item-form">
                 <label for="choose-room">Номер:</label>
                 <select class="form-control" id="choose-room" name="room">
@@ -104,7 +104,7 @@ $rooms = $rooms->fetch_all();
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary btn_update_booking" name="id_booking">Изменить</button>
+            <button type="button" class="btn btn-primary btn_update_booking" name="id_booking">Изменить</button>
         </form>
     </div>
 
@@ -210,8 +210,8 @@ $rooms = $rooms->fetch_all();
                                                 <button type="button" class="btn btn-outline-success update_booking" value="<?php echo $booking[$i - 1][0] ?>">Изменить</button>
                                             </td>
                                             <td>
-                                                <form action="../delete_booking.php" method="post">
-                                                    <button type="submit" name="delete_booking" value="<?php echo $booking[$i - 1][0] ?>" class="btn btn-danger">Удалить
+                                                <form id = "delete_form">
+                                                    <button type="button" name="delete_booking" value="<?php echo $booking[$i - 1][0] ?>" class="btn btn-danger btn_delete_booking">Удалить
                                                     </button>
                                                 </form>
                                             </td>
@@ -242,9 +242,16 @@ $rooms = $rooms->fetch_all();
 
 
     <!-- Cкрипты-->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/ext-core/3.1.0/ext-core.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <script src = "person_ajax.js"></script>
+    <script src = "booking_ajax.js"></script>
     <script src="delete_and_update.js"></script>
 </body>
 
