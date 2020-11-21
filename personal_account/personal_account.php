@@ -10,6 +10,14 @@ $user_info = $mysql->query("
       SELECT * FROM `users` WHERE `id` = '$id_user'
       ");
 $user_info = $user_info->fetch_all();
+
+$login = $_SESSION['user']['login'];
+$id_user = $_SESSION['user']['id'];
+$booking = $mysql->query("
+                SELECT * FROM `booking` WHERE `id_user` = '$id_user'
+            ");
+$all_count =  mysqli_num_rows($booking);
+$booking = $booking->fetch_all();
 ?>
 
 <!DOCTYPE html>
@@ -26,24 +34,61 @@ $user_info = $user_info->fetch_all();
 </head>
 
 <body>
-
-    <div class="block_update_info" style = "display:none">
+    <!-- Форма изменения информации о пользователе-->
+    <div class="block_update_info" style="display:none">
         <div class="close"><i class="fas fa-times"></i></div>
-        
-        <form action="../update_info_user.php" method = "post">
-        <div class="form-group">
-             <label for="update_full_name">Полное имя</label>
-            <input type="text" class="form-control" id="update_full_name" value = "<?php echo $user_info[0][1]?>" name = "update_fullname">
-        </div>
-        <div class="form-group">
-            <label for="update_email">Электронная почта</label>
-            <input type="email" class="form-control" id="update_email" value = "<?php echo $user_info[0][2]?>" name = "update_email">
-        </div>
-        <div class="form-group">
-            <label for="update_phone">Телефон</label>
-            <input type="phone" class="form-control" id="update_phone" value = "<?php echo $user_info[0][5]?>>" name = "update_phone">
-        </div>
-        <button type="submit" class="btn btn-primary">Изменить</button>
+
+        <form action="../update_info_user.php" method="post">
+            <div class="form-group">
+                <label for="update_full_name">Полное имя</label>
+                <input type="text" class="form-control" id="update_full_name" value="<?php echo $user_info[0][1]?>"
+                    name="update_fullname">
+            </div>
+            <div class="form-group">
+                <label for="update_email">Электронная почта</label>
+                <input type="email" class="form-control" id="update_email" value="<?php echo $user_info[0][2]?>"
+                    name="update_email">
+            </div>
+            <div class="form-group">
+                <label for="update_phone">Телефон</label>
+                <input type="phone" class="form-control" id="update_phone" value="<?php echo $user_info[0][5]?>>"
+                    name="update_phone">
+            </div>
+            <button type="submit" class="btn btn-primary">Изменить</button>
+        </form>
+    </div>
+
+    <!-- Форма изменения бронирования-->
+    <div class="block_update_booking" style="display:none">
+        <div class="close_booking"><i class="fas fa-times"></i></div>
+
+        <form action="../update_booking.php" method="post">
+            <div class="rooms item-form">
+                <label for="choose-room">Номер:</label>
+                <select class="form-control" id="choose-room" name="room">
+                    <option>Стандарт</option>
+                    <option>Стандарт-комфорт 2-местный</option>
+                    <option>Семейный</option>
+                    <option>Полулюкс</option>
+                    <option>Люкс</option>
+                    <option>Улучшенный люкс</option>
+                    <option>Представительский люкс</option>
+                    <option>Президентский люкс</option>
+                    <option>Вилла</option>
+                </select>
+            </div>
+            <div class="guests item-form">
+                <label for="choose-quantity-guests">Гостей:</label>
+                <select class="form-control" id="choose-quantity-guests" name="guests">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn_update_booking" name = "id_booking">Изменить</button>
         </form>
     </div>
 
@@ -52,7 +97,7 @@ $user_info = $user_info->fetch_all();
             <div class="wrap-header">
                 <div class="profile">
                     <?php if(!array_key_exists('user', $_SESSION)) { ?>
-                    <div class="registration"><a href="../reg_auth/register.html">Регистрация</a></div>
+                    <div class="registration"><a href="../reg_auth/reg.php">Регистрация</a></div>
                     <p>|</p>
                     <div class="authorization"><a href="../reg_auth/auth.html">Авторизация</a></div>
                     <?php } else{ ?>
@@ -130,19 +175,13 @@ $user_info = $user_info->fetch_all();
                                         <th scope="col">Дата</th>
                                         <th scope="col">Номер</th>
                                         <th scope="col">Гостей</th>
+                                        <th scope="col">Изменить</th>
                                         <th scope="col">Удалить</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php 
-                            
-                            $login = $_SESSION['user']['login'];
-                            $id_user = $_SESSION['user']['id'];
-                            $booking = $mysql->query("
-                                SELECT * FROM `booking` WHERE `id_user` = '$id_user'
-                                ");
-                            $all_count =  mysqli_num_rows($booking);
-                            $booking = $booking->fetch_all();
+                        
                             for($i = 1; $i<=$all_count; $i++){?>
                                     <tr>
                                         <th scope="row"><?php echo $i ?></th>
@@ -151,13 +190,15 @@ $user_info = $user_info->fetch_all();
                                         <td><?php echo $booking[$i-1][5]?></td>
                                         <td><?php echo $booking[$i-1][6]?></td>
                                         <td>
+                                            <button type="button" class="btn btn-outline-success update_booking" value = "<?php echo $booking[$i-1][0]?>">Изменить</button>
+                                        </td>
+                                        <td>
                                             <form action="../delete_booking.php" method="post">
-                                                <button type="submit" name="delete_booking" value="<?php echo $booking[$i-1][0]?>" class="btn btn-danger"
-                                                    >Удалить
+                                                <button type="submit" name="delete_booking"
+                                                    value="<?php echo $booking[$i-1][0]?>"
+                                                    class="btn btn-danger">Удалить
                                                 </button>
                                             </form>
-                                            
-
                                         </td>
                                     </tr>
                                     <?php };?>
@@ -195,7 +236,7 @@ $user_info = $user_info->fetch_all();
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-    <script src = "delete.js"></script>
+    <script src="delete_and_update.js"></script>
 </body>
 
 </html>

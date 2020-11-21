@@ -1,4 +1,6 @@
 <?php
+session_start();
+$mysql = new mysqli ("localhost","root", "", 'hotel_database');
 $name = filter_var(trim( $_POST['Fio']), FILTER_SANITIZE_STRING);
 $email = filter_var(trim( $_POST['email']), FILTER_SANITIZE_STRING);
 $login = filter_var(trim( $_POST['login']), FILTER_SANITIZE_STRING);
@@ -6,25 +8,45 @@ $password = md5(filter_var(trim( $_POST['password']), FILTER_SANITIZE_STRING)."W
 $phone = filter_var(trim( $_POST['phone']), FILTER_SANITIZE_STRING);
 
 if(($name == "") || ($email == "") || ($login == "") || ($password == "") || ($phone == "")){
-    echo "неправильно введены данные";
+    $_SESSION['error'] = [
+        "error_message"=>"У вас есть пустые поля"
+    ];
+    header('Location: /Hotel/reg_auth/reg.php');
+}
+$repead_login = $mysql->query("SELECT * FROM `users` WHERE `login` = '$login'");
+$repead_email = $mysql->query("SELECT * FROM `users` WHERE `email` = '$email'");
+$repead_phone = $mysql->query("SELECT * FROM `users` WHERE `phone` = '$phone' ");
+
+$repead_login = $repead_login->fetch_assoc();
+$repead_email = $repead_email->fetch_assoc();
+$repead_phone = $repead_phone->fetch_assoc() ;
+if(count($repead_login) != 0){
+    $_SESSION['error'] = [
+        "error_message"=>"Пользователь с таким логином существует"
+    ];
+    header('Location: /Hotel/reg_auth/reg.php');
     exit();
 }
-$mysql = new mysqli ("localhost","root", "", 'hotel_database');
+if(count($repead_email) != 0){
+    $_SESSION['error'] = [
+        "error_message"=>"Пользователь с таким email существует"
+    ];
+    header('Location: /Hotel/reg_auth/reg.php');
+    exit();
+}
+if(count($repead_phone) != 0){
+    $_SESSION['error'] = [
+        "error_message"=>"Пользователь с таким телефоном существует"
+    ];
+    header('Location: /Hotel/reg_auth/reg.php');
+    exit();
+}
 
-$repead = $mysql->query("SELECT * FROM `users` WHERE `login` = '$login' OR `email` = '$email' OR `phone` = '$phone' ");
-
-$repead = $repead->fetch_assoc();
-
-if(count($repead)==0){
-    $mysql->query("
+$mysql->query("
     INSERT INTO `users` (`full_name`, `email`, `login`, `password`, `phone`)
     VALUES('$name', '$email', '$login', '$password', '$phone')        
     ");
-    $mysql->close();
-    header('Location: /Hotel/home_page/home.php');
-}
-else{
-    echo "Пользователь с таким логином или почтой или телефоном существует";
-    $mysql->close();
-}
+print_r($repead_login);
+$mysql->close();
+header('Location: /Hotel/home_page/home.php');
 ?>

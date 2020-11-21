@@ -9,5 +9,6 @@
     $update = $mysql->query("
                     UPDATE `users` SET `full_name` = '$new_full_name', `email` = '$new_email', `phone` = '$new_phone' WHERE `users`.`id` = '$user_id'
                 ");
+    $mysql->close();
     header('Location: /Hotel/personal_account/personal_account.php');
  ?>

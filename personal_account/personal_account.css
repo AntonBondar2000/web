@@ -182,3 +182,39 @@ footer .wrap p{
 .block_update_info form button{
     margin-top: 25px;
 }
+
+
+/*Фома изменения бронирования*/
+.block_update_booking{
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 30%;
+    background-color: black;
+    padding: 50px;
+    z-index: 100;
+    border-radius: 25px;
+}
+.block_update_booking label{
+    color: white;
+}
+.block_update_booking .close_booking{
+    display: flex;
+    justify-content: flex-end;
+    color:white;
+    width: 100%;
+}
+.block_update_booking i{
+    color:white !important;
+    cursor: pointer;
+}
+.block_update_booking i:hover{
+    color:white !important;
+    cursor: pointer;
+}
+.block_update_booking form{
+    margin-top: 50px;
+}
+.block_update_booking form button{
+    margin-top: 25px;
+}

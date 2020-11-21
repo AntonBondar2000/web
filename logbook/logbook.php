@@ -30,7 +30,7 @@ else{
             <div class="wrap-header">
                 <div class="profile">
             <?php if(!array_key_exists('user', $_SESSION)) { ?>
-                    <div class="registration"><a href="../reg_auth/register.html">Регистрация</a></div>
+                    <div class="registration"><a href="../reg_auth/reg.php">Регистрация</a></div>
                     <p>|</p>
                     <div class="authorization"><a href="../reg_auth/auth.html">Авторизация</a></div>
             <?php } else{ ?>
