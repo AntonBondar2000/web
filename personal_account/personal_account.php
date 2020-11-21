@@ -1,9 +1,14 @@
 <?php
 session_start();
+
+
 if(!array_key_exists('user', $_SESSION)){
   header('Location: /Hotel/home_page/home.php');
   exit();
 }
+
+
+
 $mysql = new mysqli ("localhost","root", "", 'hotel_database');
 $id_user = $_SESSION['user']['id'];
 $user_info = $mysql->query("
@@ -13,17 +18,25 @@ $user_info = $user_info->fetch_all();
 
 $login = $_SESSION['user']['login'];
 $id_user = $_SESSION['user']['id'];
+
+
+
+
 if(array_key_exists('bookings', $_SESSION)){
     $booking = $_SESSION['bookings']['booking'];
     $all_count =  $_SESSION['bookings']['all_count'];
 }
 else{
     $booking = $mysql->query("
-    SELECT * FROM `booking` WHERE `id_user` = '$id_user'");
+    SELECT * FROM `booking` WHERE `id_user` = '$id_user' ORDER BY `id` DESC");
     $all_count =  mysqli_num_rows($booking);
     $booking = $booking->fetch_all();
 }
 unset($_SESSION['bookings']);
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -180,12 +193,12 @@ unset($_SESSION['bookings']);
                                                 type="submit">Поиск
                                 </button>
                             </form>
-                            <table class="table">
+                            <table class="table" id = "second_page_person">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">ФИО</th>
-                                        <th scope="col">Дата</th>
+                                        <th scope="col">Дата </th>
                                         <th scope="col">Номер</th>
                                         <th scope="col">Гостей</th>
                                         <th scope="col">Изменить</th>

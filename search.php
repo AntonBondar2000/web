@@ -6,14 +6,14 @@ $mysql = new mysqli ("localhost","root", "", 'hotel_database');
 $search_query = trim($search_query);
 if(strlen($search_query)!= 0){
     $booking = $mysql->query("
-    SELECT * FROM `booking` WHERE `id_user` = '$id_user' AND `room` LIKE '%$search_query%'    
+    SELECT * FROM `booking` WHERE `id_user` = '$id_user' AND `room` LIKE '%$search_query%' ORDER BY `id` DESC   
         ");
     $booking = $booking->fetch_all();
     $all_count = count($booking);    
 }
 else{
     $booking = $mysql->query("
-                SELECT * FROM `booking` WHERE `id_user` = '$id_user'
+                SELECT * FROM `booking` WHERE `id_user` = '$id_user' ORDER BY `id` DESC
             ");
     $booking = $booking->fetch_all();
     $all_count = count($booking); 

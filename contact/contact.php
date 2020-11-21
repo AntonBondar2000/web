@@ -77,6 +77,9 @@ session_start();
             </div>
         </div>
     </section>
+    <section class="map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d21086.24813136367!2d44.44176004999999!3d48.6523043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1605961058288!5m2!1sru!2sru" width="100%" height="1000" frameborder="0" style="border:0; padding: 100px 0 100px 0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    </section>
     <Footer>
         <div class="wrap">
             <p>Все права защищены ©2020</p>
