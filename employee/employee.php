@@ -1,7 +1,18 @@
 <?php
 session_start();
-?>
 
+if(array_key_exists('user', $_SESSION)){
+    $log = "Пользователь: " . $_SESSION['user']['id'] . " - Зашел на страницу сотрудников " . date('Y-m-d');
+    file_put_contents('../log/log.txt', $log . PHP_EOL, FILE_APPEND);
+
+};
+
+$mysql = new mysqli ("localhost","root", "", 'hotel_database');
+$employee = $mysql->query("
+      SELECT * FROM `employee`
+      ");
+$employee = $employee->fetch_all();
+?>
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -55,31 +66,13 @@ session_start();
         <h1>Сотрудники</h1>
         <div class="container wrap">
             <div class="row block-employee">
+                <?php foreach($employee as $emp){ ?>
                 <div class="item-block-employee col-12">
-                    <img src="../img/people_1.jpg" alt="Фотография">
-                    <p class="fio">Иванов Иван Иванович</p>
-                    <p class="post">Директор</p>
+                    <img src="<?php echo $emp[3] ?>" alt="Фотография">
+                    <p class="fio"><?php echo $emp[1] ?></p>
+                    <p class="post"><?php echo $emp[2] ?></p>
                 </div>
-                <div class="item-block-employee col-12">
-                    <img src="../img/people_2.jpg" alt="Фотография">
-                    <p class="fio">Иванов Иван Иванович</p>
-                    <p class="post">It-специалист</p>
-                </div>
-                <div class="item-block-employee col-12">
-                    <img src="../img/people_3.jpg" alt="Фотография">
-                    <p class="fio">Иванов Иван Иванович</p>
-                    <p class="post">Горничная</p>
-                </div>
-                <div class="item-block-employee col-12">
-                    <img src="../img/people_4.jpg" alt="Фотография">
-                    <p class="fio">Иванов Иван Иванович</p>
-                    <p class="post">Менеджер</p>
-                </div>
-                <div class="item-block-employee col-12">
-                    <img src="../img/people_5.jpg" alt="Фотография">
-                    <p class="fio">Иванов Иван Иванович</p>
-                    <p class="post">Повар</p>
-                </div>
+                <?php };?>
             </div>
             <div class="pagination">
                 <nav aria-label="#">

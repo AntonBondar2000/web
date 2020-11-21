@@ -10,5 +10,10 @@
                     UPDATE `users` SET `full_name` = '$new_full_name', `email` = '$new_email', `phone` = '$new_phone' WHERE `users`.`id` = '$user_id'
                 ");
     $mysql->close();
+
+    $log = "Пользователь: " . $_SESSION['user']['id'] . " - изменил свои данные " . date('Y-m-d h:i:s A');
+    file_put_contents('log/log.txt', $log . PHP_EOL, FILE_APPEND);
+
+
     header('Location: /Hotel/personal_account/personal_account.php');
  ?>

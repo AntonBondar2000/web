@@ -55,6 +55,9 @@ $mysql->query("
     INSERT INTO `users` (`full_name`, `email`, `login`, `password`, `phone`)
     VALUES('$name', '$email', '$login', '$password', '$phone')        
     ");
+
+$log = "Совершена регистрация пользователя - " . $login . date('Y-m-d h:i:s A');
+file_put_contents('log/log.txt', $log . PHP_EOL, FILE_APPEND);
 $mysql->close();
 header('Location: /Hotel/home_page/home.php');
 ?>

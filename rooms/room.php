@@ -1,5 +1,17 @@
 <?php
 session_start();
+
+if(array_key_exists('user', $_SESSION)){
+    $log = "Пользователь: " . $_SESSION['user']['id'] . " - Зашел на страницу номеров " . date('Y-m-d h:i:s A');
+    file_put_contents('../log/log.txt', $log . PHP_EOL, FILE_APPEND);
+
+};
+
+$mysql = new mysqli ("localhost","root", "", 'hotel_database');
+$rooms = $mysql->query("
+      SELECT * FROM `rooms`
+      ");
+$rooms = $rooms->fetch_all();
 ?>
 
 <!DOCTYPE html>
@@ -53,78 +65,16 @@ session_start();
         <div class="wrap container">
             <h1>Комнаты</h1>
             <div class="row block-room">
-                <div class="item-block-room col-lg-4 col-md-1">
-                    <img src="../img/standart_room.jpg" alt="Стандарт">
-                    <h2>Стандарт</h2>
-                    <p class="cost-room"><span>600₽</span> / В день</p>
-                    <p class="apartament"> Количество комнат: 1</p>
-                    <p class="area">Общая площадь: 15</p>
-                    <p class="guest">Гостей: 1</p>
-                </div>
-                <div class="item-block-room col-lg-4 col-md-1">
-                    <img src="../img/two_standar_room.jpg" alt="Двухместный стандарт">
-                    <h2>Двухместный стандарт</h2>
-                    <p class="cost-room"><span>1500₽</span> / В день</p>
-                    <p class="apartament"> Количество комнат: 1</p>
-                    <p class="area">Общая площадь: 18</p>
-                    <p class="guest">Гостей: 2</p>
-                </div>
-                <div class="item-block-room col-lg-4 col-md-1">
-                    <img src="../img/family_room.jpg" alt="Семейный">
-                    <h2>Семейный</h2>
-                    <p class="cost-room"><span>2100₽</span> / В день</p>
-                    <p class="apartament"> Количество комнат: 2</p>
-                    <p class="area">Общая площадь: 29</p>
-                    <p class="guest">Гостей: 4</p>
-                </div>
-                <div class="item-block-room col-lg-4 col-md-1">
-                    <img src="../img/half_luxe_room.jpg" alt="Полулюкс">
-                    <h2>Полулюкс</h2>
-                    <p class="cost-room"><span>4300₽</span> / В день</p>
-                    <p class="apartament"> Количество комнат: 2</p>
-                    <p class="area">Общая площадь: 35</p>
-                    <p class="guest">Гостей: 2</p>
-                </div>
-                <div class="item-block-room col-lg-4 col-md-1">
-                    <img src="../img/luxe.jpg" alt="Люкс">
-                    <h2>Люкс</h2>
-                    <p class="cost-room"><span>8800₽</span> / В день</p>
-                    <p class="apartament"> Количество комнат: 2</p>
-                    <p class="area">Общая площадь: 43</p>
-                    <p class="guest">Гостей: 3</p>
-                </div>
-                <div class="item-block-room col-lg-4 col-md-1">
-                    <img src="../img/advanced_luxe.jpg" alt="Улучшенный люкс">
-                    <h2>Улучшенный люкс</h2>
-                    <p class="cost-room"><span>16000₽</span> / В день</p>
-                    <p class="apartament"> Количество комнат: 3</p>
-                    <p class="area">Общая площадь: 59</p>
-                    <p class="guest">Гостей: 4</p>
-                </div>
-                <div class="item-block-room col-lg-4 col-md-1">
-                    <img src="../img/representative_luxe_room.jpg" alt="Представительский люкс">
-                    <h2>Представительский люкс</h2>
-                    <p class="cost-room"><span>22000</span> / В день</p>
-                    <p class="apartament"> Количество комнат: 3</p>
-                    <p class="area">Общая площадь: 59</p>
-                    <p class="guest">Гостей: 4</p>
-                </div>
-                <div class="item-block-room col-lg-4 col-1">
-                    <img src="../img/presedentation_luxe_room.jpg" alt="Президентский люкс">
-                    <h2>Президентский люкс</h2>
-                    <p class="cost-room"><span>40000₽</span> / В день</p>
-                    <p class="apartament"> Количество комнат: 5</p>
-                    <p class="area">Общая площадь: 72</p>
-                    <p class="guest">Гостей: 4</p>
-                </div>
-                <div class="item-block-room col-lg-4 col-1">
-                    <img src="../img/Villa.jpg" alt="Вилла">
-                    <h2>Вилла</h2>
-                    <p class="cost-room"><span>320000₽</span> / В день</p>
-                    <p class="apartament"> Количество комна: 12</p>
-                    <p class="area">Общая площадь: 400</p>
-                    <p class="guest">Гостей: 4</p>
-                </div>
+                <?php foreach($rooms as $room){?>
+                            <div class="item-block-room col-lg-4 col-md-1">
+                                <img src="<?php echo $room[6]?>" alt="Стандарт">
+                                <h2><?php echo $room[1]?></h2>
+                                <p class="cost-room"><span><?php echo $room[2]?>Р</span> / В день</p>
+                                <p class="apartament"> Количество комнат: <?php echo $room[3]?></p>
+                                <p class="area">Общая площадь: <?php echo $room[4]?></p>
+                                <p class="guest">Гостей: <?php echo $room[5]?></p>
+                            </div>
+                <?php };?>
             </div>
         </div>
     </section>

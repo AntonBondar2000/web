@@ -23,5 +23,15 @@ $_SESSION['bookings'] = [
     'all_count'=>$all_count
 ];
 $mysql->close();
+
+
+$log = "Пользователь: " . $_SESSION['user']['id'] . " - Сделал поиск: ". $search_query . " " . date('Y-m-d h:i:s A');
+file_put_contents('log/log.txt', $log . PHP_EOL, FILE_APPEND);
+
+
+
+
+
+
 header('Location: /Hotel/personal_account/personal_account.php');
 ?>

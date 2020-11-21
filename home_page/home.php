@@ -1,5 +1,34 @@
 <?php
 session_start();
+
+if(array_key_exists('user', $_SESSION)){
+    $log = "Пользователь: " . $_SESSION['user']['id'] . " - Зашел на главную страницу " . date('Y-m-d');
+    file_put_contents('../log/log.txt', $log . PHP_EOL, FILE_APPEND);
+
+};
+
+
+
+$mysql = new mysqli ("localhost","root", "", 'hotel_database');
+$information = $mysql->query("
+      SELECT * FROM `information` ORDER BY `id` DESC
+      ");
+$information = $information->fetch_all();
+$id_info = $information[0][0];
+$name_info = $information[0][1];
+$description_info = $information[0][2];
+$star_info = $information[0][3];
+
+$services = $mysql->query("
+SELECT services.* FROM `information_services` INNER JOIN information ON information_services.id_information = '$id_info' INNER JOIN `services` ON services.id = information_services.id
+");
+$services = $services->fetch_all();
+
+
+$rooms = $mysql->query("
+      SELECT name FROM `rooms`
+      ");
+$rooms = $rooms->fetch_all();
 ?>
 
 <!DOCTYPE html>
@@ -99,15 +128,10 @@ session_start();
                         <div class="rooms item-form">
                             <label for="choose-room">Номер:</label>
                             <select class="form-control" id="choose-room"  name = "room">
-                                <option>Стандарт</option>
-                                <option>Стандарт-комфорт 2-местный</option>
-                                <option>Семейный</option>
-                                <option>Полулюкс</option>
-                                <option>Люкс</option>
-                                <option>Улучшенный люкс</option>
-                                <option>Представительский люкс</option>
-                                <option>Президентский люкс</option>
-                                <option>Вилла</option>
+                                <?php foreach($rooms as $room){?>
+                                    <option><?php echo $room[0]?></option>
+                                <?php };?>
+                                
                             </select>
                         </div>
                         <div class="guests item-form">
@@ -135,12 +159,9 @@ session_start();
         <div class="wrap">
             <div class="about-us-information">
                 <p class="about-us-information-title">Насчет нас</p>
-                <h2>Отель Hurawalhi 5*</h2>
+                <h2><?php echo $name_info;?> <?php echo $star_info;?>*</h2>
                 <p class="about-us-information-text">
-                    Курортный отель Hurawalhi Island Resort, расположенный на
-                    очаровательном частном острове
-                    в нетронутом атолле Лавияни на Мальдивах, очень похож на ваши отношения: это идеальное сочетание
-                    безмятежности и азарта,комфорта и приключений.
+                    <?php echo $description_info; ?>
                 </p>
             </div>
             <div class="about-us-gallery">
@@ -154,45 +175,14 @@ session_start();
             <p class="we-do-title">Что мы делаем</p>
             <h2>Откройте наши услуги</h2>
             <div class="blocks-we-do">
+
+                <?php foreach($services as $ser){?>
                 <div class="item-blocks-we-do">
-                    <i class="fas fa-route"></i>
-                    <h4>План поездки</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad ab eligendi ex provident tempore
-                        voluptas quia error, earum reiciendis temporibus, tempora molestias, quo adipisci illum.</p>
+                    <?php echo $ser[1];?>
+                    <h4><?php echo $ser[2]; ?></h4>
+                    <p><?php echo $ser[3]?></p>
                 </div>
-                <div class="item-blocks-we-do">
-                    <i class="fas fa-utensils"></i>
-                    <h4>Ресторанное обслуживание</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium saepe perferendis sequi
-                        pariatur eligendi. Ipsam rerum magni id corrupti autem incidunt. Commodi dicta officia
-                        consequatur!</p>
-                </div>
-                <div class="item-blocks-we-do">
-                    <i class="fas fa-bus"></i>
-                    <h4>Трансфер</h4>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus veniam similique, tempora
-                        voluptatem vel corrupti. Necessitatibus animi cupiditate temporibus unde quaerat dicta est
-                        explicabo provident.</p>
-                </div>
-                <div class="item-blocks-we-do">
-                    <i class="far fa-star"></i>
-                    <h4>All inclusive</h4>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquam cum tempore voluptatibus est
-                        repellendus at dolor velit officia itaque laudantium non reprehenderit ratione, cupiditate
-                        harum!</p>
-                </div>
-                <div class="item-blocks-we-do">
-                    <i class="fas fa-bath"></i>
-                    <h4>Прачечная</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates ab tempore, nulla voluptate
-                        molestias adipisci a modi dolores. Facere deserunt itaque dignissimos nihil fugit possimus.</p>
-                </div>
-                <div class="item-blocks-we-do">
-                    <i class="fas fa-umbrella-beach"></i>
-                    <h4>Частный пляж</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, deleniti harum et at, quia laborum,
-                        assumenda esse cumque quidem nobis numquam quisquam eum soluta vitae.</p>
-                </div>
+                <?php };?>
             </div>
         </div>
     </section>

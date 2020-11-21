@@ -39,6 +39,9 @@ $_SESSION['user'] = [
     "root" => $check_user['root']
 ];
 
+$log = "Пользователь: " . $_SESSION['user']['id'] . " - Авторизовался " . date('Y-m-d h:i:s A');
+file_put_contents('log/log.txt', $log . PHP_EOL, FILE_APPEND);
+
 $mysql->close();
 
 header('Location: /Hotel/home_page/home.php');
