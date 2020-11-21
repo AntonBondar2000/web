@@ -4,6 +4,14 @@ $mysql = new mysqli ("localhost","root", "", 'hotel_database');
 $name = filter_var(trim( $_POST['Fio']), FILTER_SANITIZE_STRING);
 $email = filter_var(trim( $_POST['email']), FILTER_SANITIZE_STRING);
 $login = filter_var(trim( $_POST['login']), FILTER_SANITIZE_STRING);
+$password = trim( $_POST['password']);
+if(strlen($password) <=5){
+    $_SESSION['error'] = [
+        "error_message"=>"Слишком короткий пароль"
+    ];
+    header('Location: /Hotel/reg_auth/reg.php');
+    exit();
+}
 $password = md5(filter_var(trim( $_POST['password']), FILTER_SANITIZE_STRING)."Word");
 $phone = filter_var(trim( $_POST['phone']), FILTER_SANITIZE_STRING);
 
@@ -12,6 +20,7 @@ if(($name == "") || ($email == "") || ($login == "") || ($password == "") || ($p
         "error_message"=>"У вас есть пустые поля"
     ];
     header('Location: /Hotel/reg_auth/reg.php');
+    exit();
 }
 $repead_login = $mysql->query("SELECT * FROM `users` WHERE `login` = '$login'");
 $repead_email = $mysql->query("SELECT * FROM `users` WHERE `email` = '$email'");
@@ -46,7 +55,6 @@ $mysql->query("
     INSERT INTO `users` (`full_name`, `email`, `login`, `password`, `phone`)
     VALUES('$name', '$email', '$login', '$password', '$phone')        
     ");
-print_r($repead_login);
 $mysql->close();
 header('Location: /Hotel/home_page/home.php');
 ?>

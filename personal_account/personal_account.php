@@ -13,11 +13,17 @@ $user_info = $user_info->fetch_all();
 
 $login = $_SESSION['user']['login'];
 $id_user = $_SESSION['user']['id'];
-$booking = $mysql->query("
-                SELECT * FROM `booking` WHERE `id_user` = '$id_user'
-            ");
-$all_count =  mysqli_num_rows($booking);
-$booking = $booking->fetch_all();
+if(array_key_exists('bookings', $_SESSION)){
+    $booking = $_SESSION['bookings']['booking'];
+    $all_count =  $_SESSION['bookings']['all_count'];
+}
+else{
+    $booking = $mysql->query("
+    SELECT * FROM `booking` WHERE `id_user` = '$id_user'");
+    $all_count =  mysqli_num_rows($booking);
+    $booking = $booking->fetch_all();
+}
+unset($_SESSION['bookings']);
 ?>
 
 <!DOCTYPE html>
@@ -167,6 +173,13 @@ $booking = $booking->fetch_all();
 
                         <div class="tab-pane fade booking" id="list-profile" role="tabpanel"
                             aria-labelledby="list-profile-list">
+                            <form class="form-inline" action="../search.php" method = "post">
+                                <input class="form-control mr-sm-2 search-input" type="search"
+                                               placeholder="Search" aria-label="Search" name='search_query'">
+                                <button class="btn btn-outline-success my-2 my-sm-0"
+                                                type="submit">Поиск
+                                </button>
+                            </form>
                             <table class="table">
                                 <thead>
                                     <tr>
